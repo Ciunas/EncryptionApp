@@ -39,14 +39,21 @@ public class FXController {
 
     @FXML
     public void newScene(ActionEvent actionEvent) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("inputStage.fxml"));
-        Parent root1 = (Parent) fxmlLoader.load();
-        Stage stage = new Stage();
-        stage.initModality(Modality.APPLICATION_MODAL);
-        stage.initStyle(StageStyle.UNDECORATED);
-        stage.setTitle("ABC");
-        stage.setScene(new Scene(root1));
-        stage.show();
 
+//        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("inputStage.fxml"));
+//        Parent root1 = (Parent) fxmlLoader.load();
+//        Stage stage = new Stage();
+//        stage.initModality(Modality.APPLICATION_MODAL);
+//        stage.initStyle(StageStyle.UNDECORATED);
+//        stage.setTitle("ABC");
+//        stage.setScene(new Scene(root1));
+//        stage.show();
+
+
+        Parent root1 = FXMLLoader.load(getClass().getResource("inputStage.fxml"));
+        Stage stage1 = new Stage();
+        stage1.setTitle("Text Encryption Application");
+        stage1.setScene(new Scene(root1, 500, 600));
+        stage1.show();
     }
 }
