@@ -12,14 +12,19 @@
    <children>
       <BorderPane prefHeight="600.0" prefWidth="500.0">
          <bottom>
-            <Button fx:id="button5" mnemonicParsing="false" onAction="#encryptMessage" prefHeight="26.0" prefWidth="418.0" text="Encrypt" BorderPane.alignment="CENTER" />
+            <SplitPane dividerPositions="0.5" BorderPane.alignment="CENTER">
+               <items>
+                  <Button fx:id="button5" mnemonicParsing="false" onAction="#encryptMessage" prefHeight="26.0" prefWidth="256.0" text="Encrypt" />
+                  <Button fx:id="button6" mnemonicParsing="false" onAction="#decryptMessage" prefHeight="26.0" prefWidth="232.0" text="Decrypt" />
+               </items>
+            </SplitPane>
          </bottom>
          <center>
             <SplitPane dividerPositions="0.5" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0" BorderPane.alignment="CENTER">
               <items>
                   <ScrollPane fitToHeight="true" fitToWidth="true">
                      <content>
-                        <TextArea prefHeight="285.0" prefWidth="499.0" wrapText="true">
+                        <TextArea fx:id="textArea1" prefHeight="285.0" prefWidth="499.0" wrapText="true">
                            <font>
                               <Font size="14.0" />
                            </font></TextArea>
@@ -27,7 +32,7 @@
                   </ScrollPane>
                   <ScrollPane fitToHeight="true" fitToWidth="true">
                      <content>
-                        <TextArea disable="true" wrapText="true">
+                        <TextArea fx:id="textArea2" wrapText="true">
                            <font>
                               <Font size="14.0" />
                            </font>
