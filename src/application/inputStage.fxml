@@ -1,16 +1,42 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.text.Font?>
 
-
-<BorderPane xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.InputStage">
-   <bottom>
-      <SplitPane BorderPane.alignment="CENTER">
-         <items>
-            <Button mnemonicParsing="false" text="Button" />
-         </items>
-      </SplitPane>
-   </bottom>
-</BorderPane>
+<AnchorPane xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.InputStage">
+   <children>
+      <BorderPane prefHeight="600.0" prefWidth="500.0">
+         <bottom>
+            <Button fx:id="button5" mnemonicParsing="false" onAction="#encryptMessage" prefHeight="26.0" prefWidth="418.0" text="Encrypt" BorderPane.alignment="CENTER" />
+         </bottom>
+         <center>
+            <SplitPane dividerPositions="0.5" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0" BorderPane.alignment="CENTER">
+              <items>
+                  <ScrollPane fitToHeight="true" fitToWidth="true">
+                     <content>
+                        <TextArea prefHeight="285.0" prefWidth="499.0" wrapText="true">
+                           <font>
+                              <Font size="14.0" />
+                           </font></TextArea>
+                     </content>
+                  </ScrollPane>
+                  <ScrollPane fitToHeight="true" fitToWidth="true">
+                     <content>
+                        <TextArea disable="true" wrapText="true">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </TextArea>
+                     </content>
+                  </ScrollPane>
+              </items>
+            </SplitPane>
+         </center>
+      </BorderPane>
+   </children>
+</AnchorPane>
