@@ -8,6 +8,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.FileChooser;
 import javafx.stage.Modality;
@@ -20,7 +21,7 @@ import java.io.IOException;
 public class FXController {
 
     @FXML
-    private TextField text1;
+    private Label label1;
     @FXML
     private Button button;
 
@@ -31,9 +32,24 @@ public class FXController {
         File selectedFile = fileChooser.showOpenDialog(null);
         if (selectedFile != null) {
 
-            text1.setText(selectedFile.getName());
+
+
+            String key = "Mary has one cat";
+            File inputFile = new File("/home/ciunas/test.txt");
+            File encryptedFile = new File("/home/ciunas/test.encrypted");
+            File decryptedFile = new File("/home/ciunas/test.decrypted");
+
+            try {
+                //CryptoUtils.encrypt(key, inputFile, encryptedFile);
+                CryptoUtils.decrypt(key, encryptedFile, decryptedFile);
+            } catch (CryptoException ex) {
+                System.out.println(ex.getMessage());
+                ex.printStackTrace();
+            }
+
+            label1.setText ( selectedFile +  " Encrytpted.");
         } else {
-            text1.setText("File selection cancelled.");
+            label1.setText(selectedFile +  " not Encrytpted.");
         }
     }
 
