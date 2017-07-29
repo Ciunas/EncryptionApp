@@ -1,20 +1,17 @@
 package application;
 
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
+import java.io.*;
+import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
 import java.security.InvalidKeyException;
 import java.security.Key;
 import java.security.NoSuchAlgorithmException;
 import java.util.Base64;
+import java.util.SplittableRandom;
 
-import javax.crypto.BadPaddingException;
-import javax.crypto.Cipher;
-import javax.crypto.IllegalBlockSizeException;
-import javax.crypto.NoSuchPaddingException;
+import javax.crypto.*;
 import javax.crypto.spec.SecretKeySpec;
 
 public class CryptoUtils {
@@ -31,28 +28,24 @@ public class CryptoUtils {
         doCrypto(Cipher.DECRYPT_MODE, key, inputFile, outputFile);
     }
 
-    public static byte[] encryptText(String key, String inputText)
-            throws CryptoException {
-        return doCryptoText(Cipher.ENCRYPT_MODE, key, inputText);
-    }
 
-    public static byte[] decryptText(String key, String inputText)
-            throws CryptoException {
-        return doCryptoText(Cipher.DECRYPT_MODE, key, inputText);
-    }
 
     private static void doCrypto(int cipherMode, String key, File inputFile,
                                  File outputFile) throws CryptoException {
         try {
+
             Key secretKey = new SecretKeySpec(key.getBytes(), ALGORITHM);
             Cipher cipher = Cipher.getInstance(TRANSFORMATION);
             cipher.init(cipherMode, secretKey);
 
             FileInputStream inputStream = new FileInputStream(inputFile);
-            byte[] inputBytes = new byte[(int) inputFile.length()];
+            byte[] inputBytes = new byte[ (int) inputFile.length()];
             inputStream.read(inputBytes);
 
+            //System.out.println( new String(inputBytes, StandardCharsets.UTF_8));
+
             byte[] outputBytes = cipher.doFinal(inputBytes);
+
 
             FileOutputStream outputStream = new FileOutputStream(outputFile);
             outputStream.write(outputBytes);
@@ -67,37 +60,39 @@ public class CryptoUtils {
         }
     }
 
-    private static byte [] doCryptoText(int cipherMode, String key, String inputString) throws CryptoException {
-        try {
-            Key secretKey = new SecretKeySpec(key.getBytes(), ALGORITHM);
-            Cipher cipher = Cipher.getInstance(TRANSFORMATION);
-            cipher.init(cipherMode, secretKey);
 
-            //FileInputStream inputStream = new FileInputStream(inputFile);
-            System.out.println(inputString + " inputString");
-            //byte[] inputBytes = new byte[ inputString.length() ];
-            byte[] inputBytes = Base64.getEncoder().encode( inputString.getBytes() );
 
-            String string1 = new String(Base64.getDecoder().decode(inputBytes));
-            System.out.println(string1 + " inputString");
-            //byte[] inputBytes = new byte[ (int) inputString.length()];
-                    //new byte[(int) inputString.length()];
-            //inputStream.read(inputBytes);
 
-            byte[] outputBytes = cipher.doFinal(inputBytes);
+    public static String encrypt(String strClearText, SecretKey strKey) throws Exception {
 
-            //FileOutputStream outputStream = new FileOutputStream(outputFile);
-            //outputStream.write(outputBytes);
 
-            //inputStream.close();
-            //outputStream.close();
-            return outputBytes;
+        Cipher  ecipher = Cipher.getInstance("DES");
+        ecipher.init(Cipher.ENCRYPT_MODE, strKey);
+        // Encode the string into bytes using utf-8
+        byte[] utf8 = strClearText.getBytes("UTF8");
 
-        } catch (NoSuchPaddingException | NoSuchAlgorithmException
-                | InvalidKeyException | BadPaddingException
-                | IllegalBlockSizeException ex) {
-            throw new CryptoException("Error encrypting/decrypting file", ex);
-        }
+        // Encrypt
+        byte[] enc = ecipher.doFinal(utf8);
+
+        // Encode bytes to base64 to get a string
+        return new sun.misc.BASE64Encoder().encode(enc);
+
+    }
+
+    public static String decrypt(String strEncrypted, SecretKey strKey) throws Exception {
+
+
+        Cipher dcipher = Cipher.getInstance("DES");
+        dcipher.init(Cipher.DECRYPT_MODE, strKey);
+
+        // Decode base64 to get bytes
+        byte[] dec = new sun.misc.BASE64Decoder().decodeBuffer(strEncrypted);
+
+        byte[] utf8 = dcipher.doFinal(dec);
+
+        // Decode using utf-8
+        return new String(utf8, "UTF8");
+
     }
 
 

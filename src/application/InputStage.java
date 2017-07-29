@@ -4,9 +4,11 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextArea;
 
-import java.io.File;
+import javax.crypto.KeyGenerator;
+import javax.crypto.SecretKey;
 import java.io.UnsupportedEncodingException;
-import java.util.Base64;
+import java.nio.charset.StandardCharsets;
+import java.security.NoSuchAlgorithmException;
 
 
 public class InputStage {
@@ -17,40 +19,58 @@ public class InputStage {
     @FXML
     private TextArea textArea2;
 
-    public void encryptMessage(ActionEvent actionEvent) {
+    SecretKey secretKey = KeyGenerator.getInstance("DES").generateKey();
+
+    public InputStage() throws NoSuchAlgorithmException {
+    }
+
+    public void encryptMessage(ActionEvent actionEvent) throws UnsupportedEncodingException {
 
         //textArea2.setText("");
-        String text = textArea1.getText();
+        String text = new String ( textArea1.getText() );
         System.out.println(text);
 
         String key = "Mary has one cat";
 
         try {
-            textArea2.setText( new String( CryptoUtils.encryptText(key,  textArea1.getText() )));
+
+
+            String temp = CryptoUtils.encrypt( text, secretKey);
+            textArea2.setText(temp);
+
+
 
         } catch (CryptoException ex) {
             System.out.println(ex.getMessage());
             ex.printStackTrace();
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
         textArea1.setText("");
     }
 
-    public void decryptMessage(ActionEvent actionEvent) {
+    public void decryptMessage(ActionEvent actionEvent) throws UnsupportedEncodingException {
 
-        String text = textArea1.getText();
+        String text = new String (textArea2.getText());
         System.out.println(text);
 
         String key = "Mary has one cat";
 
         try {
 
-            textArea2.setText( new String( CryptoUtils.decryptText(key, textArea1.getText())));
+
+            String temp =  CryptoUtils.decrypt(text, secretKey);
+            textArea1.setText(temp);
 
         } catch (CryptoException ex) {
             System.out.println(ex.getMessage());
             ex.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        textArea1.setText("");
+        textArea2.setText("");
     }
 
 }
