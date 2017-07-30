@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefWidth="435.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.FXController">
+<AnchorPane xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.FXController">
    <children>
       <BorderPane layoutX="1.0" layoutY="1.0" maxHeight="249.0" maxWidth="435.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="249.0" prefWidth="435.0">
          <center>
@@ -47,7 +47,7 @@
                         </GridPane>
                         <BorderPane prefHeight="200.0" prefWidth="200.0">
                            <center>
-                              <Label fx:id="label2" alignment="CENTER" prefHeight="93.0" style="-fx-border-color: black; -fx-border-width: 1; -fx-border-style: solid;" text="Application to encrypt/decrypt files, user can also encrypt text on the fly using the text button." textAlignment="CENTER" wrapText="true" BorderPane.alignment="CENTER">
+                              <Label fx:id="label2" alignment="CENTER" prefHeight="115.0" prefWidth="435.0" style="-fx-border-color: black; -fx-border-width: 1; -fx-border-style: solid;" text="Application to encrypt/decrypt files, user can also encrypt text on the fly using the text button." textAlignment="CENTER" wrapText="true" BorderPane.alignment="CENTER">
                                  <font>
                                     <Font name="System Bold" size="14.0" />
                                  </font></Label>
@@ -59,7 +59,7 @@
             </GridPane>
          </center>
          <bottom>
-            <Label fx:id="label1" prefWidth="400.0" style="-fx-border-color: black;" BorderPane.alignment="CENTER">
+            <Label fx:id="label1" prefWidth="435.0" style="-fx-border-color: black;" BorderPane.alignment="CENTER">
                <font>
                   <Font size="14.0" />
                </font>
